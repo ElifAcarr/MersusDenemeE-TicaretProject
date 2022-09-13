@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Mersus.ETicaret.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Ürünler</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ürün Adı
+            </th>
+            <th>
+                Ürün Açıklaması
+            </th>
+            <th>
+                Ürün Stok
+            </th>
+            <th>
+                Fiyat
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td >
+                    <form asp-action="SepetEkle" >
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="Id" value="@item.Id" />
+                        <div class="form-group" style="display: flex; padding-right:10px">
+                            <label class="control-label"></label>
+                            <input class="form-control" style="width: 25%" name="Quantity" value="1" type="number" min="1" max="@item.Quantity" />
+                            <span class="text-danger"></span>
+                            &nbsp;
+                            <input type="submit" value="Sepete Ekle" class="btn btn-primary" />
+                            &nbsp;
+                            <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Detay Görüntüle</a>
+                        </div>
+                    </form>
+                    @*//kkkkkkkk<a asp-action="Edit" asp-route-id="@item.Id">Sepete Ekle</a> |*@
+                    
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
